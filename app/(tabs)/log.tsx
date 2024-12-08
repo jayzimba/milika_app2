@@ -51,7 +51,12 @@ export default function LogScreen() {
       breathing_difficulty_cp: parseFloat(breathingDifficultyCp),
     };
 
-    fetch("http://localhost:5000/predict", {
+    // replace this replace-with-local-ipaddress with local IP address
+    // to get your ip address try this below
+    // On Windows: Run ipconfig and look for the "IPv4 Address."
+    // On macOS/Linux: Run ifconfig and look for inet.
+    
+    fetch("http://replace-with-local-ipaddress:5000/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
