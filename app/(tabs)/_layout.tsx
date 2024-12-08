@@ -1,45 +1,76 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs } from "expo-router";
+import React from "react";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { Colors } from "@/constants/Colors";
+import { FontAwesome } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+    <>
+    <StatusBar style="dark"/>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors.light.tint,
+          headerShown: false,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
+      >
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color, focused }) => (
+              <FontAwesome6
+                name={focused ? "house" : "house"}
+                color={color}
+                size={24}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="log"
+          options={{
+            title: "Log Symptoms",
+            tabBarIcon: ({ color, focused }) => (
+              <FontAwesome6
+                name={focused ? "clipboard" : "clipboard"}
+                color={color}
+                size={24}
+              />
+            ),
+          }}
+        />
+        {/* <Tabs.Screen
+        name="reminders"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Reminders",
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome
+              name={focused ? "bell" : "bell-o"}
+              color={color}
+              size={24}
+            />
+          ),
         }}
-      />
-    </Tabs>
+      /> */}
+
+        <Tabs.Screen
+          name="Doctor"
+          options={{
+            title: "Doctor",
+            tabBarIcon: ({ color, focused }) => (
+              <FontAwesome6
+                name={focused ? "user-doctor" : "user-doctor"}
+                color={color}
+                size={24}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
   );
 }
